@@ -1,0 +1,14 @@
+/**
+* The following styles get applied inside the editor only.
+*
+* Replace them with your own styles or remove the file completely.
+*/
+.wp-block-create-block-slideshow {
+  border: 1px dotted #f00;
+}
+
+.wp-block-create-block-slideshow.block-editor-block-list__block.has-warning.is-selected {
+  max-width: 100vw;
+}
+
+/*# sourceMappingURL=index.css.map*/

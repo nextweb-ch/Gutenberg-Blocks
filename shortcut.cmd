@@ -1,0 +1,1 @@
+CMD /c c://laraCMD/cmd_templates-v0.1.cmd
