@@ -23,7 +23,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 * @return {WPElement} Element to render.
 */
 export default function save({attributes}) {
-	const {align,}=attributes;
+	const {align,slides,minHeight}=attributes;
 	//console.log({attributes:align})
 	//<p>{ __( 'Slideshow – hello from the saved content!', 'slideshow' ) }</p>
 	return (
@@ -31,12 +31,32 @@ export default function save({attributes}) {
 		
 
 		<div class="carousel">
-		{attributes.slides.map( ( slide, index ) => {
-			return <div class="item">{JSON.stringify(slide)}</div>
+		{slides.map( ( slide, index ) => {
+			let backgroundImage=slide.backgroundImage.url,
+			backgroundStyle={}
+			if(backgroundImage && backgroundImage.trim()!='')backgroundStyle={
+				backgroundImage:`url(${backgroundImage})`,
+				backgroundSize:'cover',
+				backgroundPosition:'center center',
+				'minHeight':minHeight
+			}
+			let _class=
+			'vertical-'+slide.v+' '+'horizontal-'+slide.h+' '+'align-'+slide.align
+			
+
+			return <div class="item" style={backgroundStyle}>
+			<a class={_class} href={slide.link}>
+			<h3>{slide.title}</h3>
+			<p>{slide.description}</p>
+			<button>Discover More</button>
+			</a>
+			
+			</div>
 		} )}
 		</div>
 
-		<pre>{ JSON.stringify(attributes, null, '\t') }</pre>
+		
 		</div>
 		);
 	}
+	//<pre>{ JSON.stringify(attributes, null, '\t') }</pre>{JSON.stringify(slide)}

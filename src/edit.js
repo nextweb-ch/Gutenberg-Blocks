@@ -33,19 +33,25 @@ import './editor.scss';
 */
 export default function Edit(props){
 	const blockProps = useBlockProps()
-	console.log(blockProps,props)
+	console.log('_',blockProps,props)
 
 	const handleAddSlide = () => {
 		const slides = [ ...props.attributes.slides ];
 		/*slides.push( {
 			title: 'Title',
-			subtitle: 'Subtitle',
+			description: 'description',
 			backgroundImage:'',
 		} );*/
-		slides.push( {"title":"Title","subtitle":"Subtitle","backgroundImage":null,"v":"middle","h":"left","align":"left","link":"link"} );
+		slides.push( {"title":"Title","description":"Description","backgroundImage":null,"v":"middle","h":"left","align":"left","link":"link"} );
 		props.setAttributes( { slides } );
 	};
-
+	const handleSlideProp =(value,prop)=>{
+		const _prop={}
+		_prop[prop]=value
+		console.log(value,prop,_prop)
+		props.setAttributes( {_prop} )
+		//props.setAttributes( prop,value)
+	}
 	const handleRemoveSlide = ( index ) => {
 		const slides = [ ...props.attributes.slides ];
 		slides.splice( index, 1 );
@@ -70,19 +76,25 @@ export default function Edit(props){
 		slides[ index ].backgroundImage = newImage;
 		props.setAttributes( { slides } );
 	}
-	let slideFields, 
-	slideDisplay;
+	let SliderProps, 
+	SliderSlides;
 
-	slideFields = props.attributes.slides.map( ( slide, index ) => {
+	/*SliderProps = props.attributes.slides.map( ( slide, index ) => {
 		return <Fragment key={ index }>
-		<TextControl className="gsp__slide" placeholder="350 Fifth Avenue New York NY" value={ props.attributes.slides[ index ].title } onChange={ ( title ) => handleSlideChange( title, index ) } />
+		<TextControl className="gsp__minHeight" placeholder="50vh" value={ props.attributes.minHeight } onChange={ ( minHeight ) => handleSlideProp( minHeight, 'minHeight' ) } />
 		<Button className="gsp__remove-slide" icon="no-alt" label="Delete slide" onClick={ () => handleRemoveSlide( index ) } />
 		</Fragment>
 		;
-	} );
+	} );*/
+	SliderProps = () => {
+		return <Fragment key={ 'attributes' }>
+		<label>Min Height <TextControl className="gsp__minHeight" placeholder="50vh" value={ props.attributes.minHeight } onChange={ ( minHeight ) => handleSlideProp( minHeight, 'minHeight' ) } /></label>
+		</Fragment>
+		;
+	}
 
-	slideDisplay = props.attributes.slides.map( ( slide, index ) => {
-		
+	SliderSlides = props.attributes.slides.map( ( slide, index ) => {
+
 		let backgroundImage=props.attributes.slides[ index ].backgroundImage.url,
 		backgroundStyle={}
 		if(backgroundImage && backgroundImage.trim()!='')backgroundStyle={
@@ -99,14 +111,14 @@ export default function Edit(props){
 		onChange={ ( newContent ) => handleSlideChange( newContent, index,'title' ) }
 		/>
 		<RichText tagname="h3"
-		className="gsp__slide-subtitle"
-		value={ props.attributes.slides[ index ].subtitle }
-		onChange={ ( newContent ) => handleSlideChange( newContent, index,'subtitle' ) }
+		className="gsp__slide-description"
+		value={ props.attributes.slides[ index ].description }
+		onChange={ ( newContent ) => handleSlideChange( newContent, index,'description' ) }
 		/>
 		<RichText tagname="button"
 		className="gsp__slide-button"
 		value={ props.attributes.slides[ index ].button }
-		onChange={ ( newContent ) => handleSlideChange( newContent, index,'subtitle' ) }
+		onChange={ ( newContent ) => handleSlideChange( newContent, index,'description' ) }
 		/>
 		</div>
 
@@ -200,19 +212,25 @@ export default function Edit(props){
 				return ([
 				<InspectorControls key="1">
 				<PanelBody title={ __( 'Slideshow' ) }>
+				{SliderProps}
 				</PanelBody>
 				</InspectorControls>
 				,
 				<div { ...blockProps }>
-				<div>{ slideDisplay }</div>
+				<div>{ SliderSlides }</div>
 				<div>
 				<Button	isSecondary onClick={ handleAddSlide.bind( this ) }>{ __( 'Add Slide' ) }</Button>
 				</div>
-				<div class="owl-carousel owl-theme">
-				{props.attributes.slides.map( ( slide, index ) => {
-					return <div>{JSON.stringify(slide)}</div>
-				} )}
+				<div class="carousel">
+
+				{JSON.stringify(props.attributes)}
+				
 				</div>
 				</div>
 				]);
 			}
+			/*
+			{props.attributes.slides.map( ( slide, index ) => {
+				return <div>{JSON.stringify(slide)}</div>
+			} )}
+			*/

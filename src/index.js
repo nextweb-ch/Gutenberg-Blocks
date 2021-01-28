@@ -97,6 +97,11 @@ registerBlockType( 'create-block/slideshow', {
 			type: 'string',
 			default: 'full'
 		},
+		minHeight: {
+			type: 'string',
+			default: '50vh'
+		},
+
 		slides:{
 			type: 'array',
 			default: [],

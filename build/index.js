@@ -3375,20 +3375,20 @@ var Fragment = wp.element.Fragment;
 
 function Edit(props) {
   var blockProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["useBlockProps"])();
-  console.log(blockProps, props);
+  console.log('_', blockProps, props);
 
   var handleAddSlide = function handleAddSlide() {
     var slides = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(props.attributes.slides);
     /*slides.push( {
     	title: 'Title',
-    	subtitle: 'Subtitle',
+    	description: 'description',
     	backgroundImage:'',
     } );*/
 
 
     slides.push({
       "title": "Title",
-      "subtitle": "Subtitle",
+      "description": "Description",
       "backgroundImage": null,
       "v": "middle",
       "h": "left",
@@ -3398,6 +3398,15 @@ function Edit(props) {
     props.setAttributes({
       slides: slides
     });
+  };
+
+  var handleSlideProp = function handleSlideProp(value, prop) {
+    var _prop = {};
+    _prop[prop] = value;
+    console.log(value, prop, _prop);
+    props.setAttributes({
+      _prop: _prop
+    }); //props.setAttributes( prop,value)
   };
 
   var handleRemoveSlide = function handleRemoveSlide(index) {
@@ -3439,27 +3448,29 @@ function Edit(props) {
     });
   };
 
-  var slideFields, slideDisplay;
-  slideFields = props.attributes.slides.map(function (slide, index) {
+  var SliderProps, SliderSlides;
+  /*SliderProps = props.attributes.slides.map( ( slide, index ) => {
+  	return <Fragment key={ index }>
+  	<TextControl className="gsp__minHeight" placeholder="50vh" value={ props.attributes.minHeight } onChange={ ( minHeight ) => handleSlideProp( minHeight, 'minHeight' ) } />
+  	<Button className="gsp__remove-slide" icon="no-alt" label="Delete slide" onClick={ () => handleRemoveSlide( index ) } />
+  	</Fragment>
+  	;
+  } );*/
+
+  SliderProps = function SliderProps() {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Fragment, {
-      key: index
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
-      className: "gsp__slide",
-      placeholder: "350 Fifth Avenue New York NY",
-      value: props.attributes.slides[index].title,
-      onChange: function onChange(title) {
-        return handleSlideChange(title, index);
+      key: 'attributes'
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("label", null, "Min Height ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
+      className: "gsp__minHeight",
+      placeholder: "50vh",
+      value: props.attributes.minHeight,
+      onChange: function onChange(minHeight) {
+        return handleSlideProp(minHeight, 'minHeight');
       }
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
-      className: "gsp__remove-slide",
-      icon: "no-alt",
-      label: "Delete slide",
-      onClick: function onClick() {
-        return handleRemoveSlide(index);
-      }
-    }));
-  });
-  slideDisplay = props.attributes.slides.map(function (slide, index) {
+    })));
+  };
+
+  SliderSlides = props.attributes.slides.map(function (slide, index) {
     var backgroundImage = props.attributes.slides[index].backgroundImage.url,
         backgroundStyle = {};
     if (backgroundImage && backgroundImage.trim() != '') backgroundStyle = {
@@ -3483,17 +3494,17 @@ function Edit(props) {
       }
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
       tagname: "h3",
-      className: "gsp__slide-subtitle",
-      value: props.attributes.slides[index].subtitle,
+      className: "gsp__slide-description",
+      value: props.attributes.slides[index].description,
       onChange: function onChange(newContent) {
-        return handleSlideChange(newContent, index, 'subtitle');
+        return handleSlideChange(newContent, index, 'description');
       }
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
       tagname: "button",
       className: "gsp__slide-button",
       value: props.attributes.slides[index].button,
       onChange: function onChange(newContent) {
-        return handleSlideChange(newContent, index, 'subtitle');
+        return handleSlideChange(newContent, index, 'description');
       }
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Flex, {
       style: {
@@ -3606,15 +3617,18 @@ function Edit(props) {
     key: "1"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Slideshow')
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, slideDisplay), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+  }, SliderProps)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, SliderSlides), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
     isSecondary: true,
     onClick: handleAddSlide.bind(this)
   }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Add Slide'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-    class: "owl-carousel owl-theme"
-  }, props.attributes.slides.map(function (slide, index) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, JSON.stringify(slide));
-  })))];
+    class: "carousel"
+  }, JSON.stringify(props.attributes)))];
 }
+/*
+{props.attributes.slides.map( ( slide, index ) => {
+	return <div>{JSON.stringify(slide)}</div>
+} )}
+*/
 
 /***/ }),
 
@@ -3765,6 +3779,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cre
       type: 'string',
       default: 'full'
     },
+    minHeight: {
+      type: 'string',
+      default: '50vh'
+    },
     slides: {
       type: 'array',
       default: []
@@ -3828,17 +3846,34 @@ __webpack_require__.r(__webpack_exports__);
 
 function save(_ref) {
   var attributes = _ref.attributes;
-  var align = attributes.align; //console.log({attributes:align})
+  var align = attributes.align,
+      slides = attributes.slides,
+      minHeight = attributes.minHeight; //console.log({attributes:align})
   //<p>{ __( 'Slideshow – hello from the saved content!', 'slideshow' ) }</p>
 
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"].save(), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     class: "carousel"
-  }, attributes.slides.map(function (slide, index) {
+  }, slides.map(function (slide, index) {
+    var backgroundImage = slide.backgroundImage.url,
+        backgroundStyle = {};
+    if (backgroundImage && backgroundImage.trim() != '') backgroundStyle = {
+      backgroundImage: "url(".concat(backgroundImage, ")"),
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center',
+      'minHeight': minHeight
+    };
+
+    var _class = 'vertical-' + slide.v + ' ' + 'horizontal-' + slide.h + ' ' + 'align-' + slide.align;
+
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      class: "item"
-    }, JSON.stringify(slide));
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("pre", null, JSON.stringify(attributes, null, '\t')));
-}
+      class: "item",
+      style: backgroundStyle
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      class: _class,
+      href: slide.link
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h3", null, slide.title), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, slide.description), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", null, "Discover More")));
+  })));
+} //<pre>{ JSON.stringify(attributes, null, '\t') }</pre>{JSON.stringify(slide)}
 
 /***/ }),
 
