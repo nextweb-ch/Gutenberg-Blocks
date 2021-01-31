@@ -1,4 +1,4 @@
-=== Slideshow ===
+=== UN BLOCK ===
 Contributors:      The WordPress Contributors
 Tags:              block
 Requires at least: 5.6.0
@@ -8,8 +8,13 @@ Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Slider Carousel block written with ESNext standard and JSX support – build step required.
+Wordpress Gutenberg Multiple Blocks Plugin written with ESNext standard and JSX support – build step required.
 
+!!!In developent!!!
+
+Inclueded Blocks:
+-Slider Carousel
+-Countries Content Filter
 
 == Needs to implement ==
 
@@ -41,5 +46,7 @@ Activate the plugin through the 'Plugins' screen in WordPress
 
 = 0.1.0 =
 * First Commit
+
+
 
 
