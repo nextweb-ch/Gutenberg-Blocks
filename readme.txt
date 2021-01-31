@@ -15,8 +15,9 @@ Slider Carousel block written with ESNext standard and JSX support – build ste
 
 == Needs to implement ==
 
-Fix slick slider import (theme file "@import 'slick-carousel/slick/slick-theme';" is not compiled) error
-Render block data as slides instead of json
+✓ Fix slick slider import (theme file "@import 'slick-carousel/slick/slick-theme';" is not compiled) error
+✓ Render block data as slides instead of json
+Add Responsive images
 
 == Description ==
 A Slider Carousel custom block for Wordpress Gutenberg
