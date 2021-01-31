@@ -283,6 +283,28 @@ module.exports = _unsupportedIterableToArray;
 
 /***/ }),
 
+/***/ "./node_modules/slick-carousel/slick/slick-theme.css":
+/*!***********************************************************!*\
+  !*** ./node_modules/slick-carousel/slick/slick-theme.css ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./node_modules/slick-carousel/slick/slick.css":
+/*!*****************************************************!*\
+  !*** ./node_modules/slick-carousel/slick/slick.css ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "./node_modules/slick-carousel/slick/slick.js":
 /*!****************************************************!*\
   !*** ./node_modules/slick-carousel/slick/slick.js ***!
@@ -3304,10 +3326,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ "./src/edit.js":
-/*!*********************!*\
-  !*** ./src/edit.js ***!
-  \*********************/
+/***/ "./src/blocks/slider/edit.js":
+/*!***********************************!*\
+  !*** ./src/blocks/slider/edit.js ***!
+  \***********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3322,16 +3344,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../editor.scss */ "./src/editor.scss");
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_4__);
 
 
-
-/**
-* Retrieves the translation of text.
-*
-* @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
-*/
 
 var _wp$blockEditor = wp.blockEditor,
     InspectorControls = _wp$blockEditor.InspectorControls,
@@ -3348,30 +3364,7 @@ var _wp$components = wp.components,
     FlexItem = _wp$components.FlexItem,
     FlexBlock = _wp$components.FlexBlock;
 var Fragment = wp.element.Fragment;
-/**
-* React hook that is used to mark the block wrapper element.
-* It provides all the necessary props like the class name.
-*
-* @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
-*/
 
-
-/**
-* Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
-* Those files can contain any CSS code that gets applied to the editor.
-*
-* @see https://www.npmjs.com/package/@wordpress/scripts#using-css
-*/
-
-
-/**
-* The edit function describes the structure of your block in the context of the
-* editor. This represents what the editor will render when the block is used.
-*
-* @see https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#edit
-*
-* @return {WPElement} Element to render.
-*/
 
 function Edit(props) {
   var blockProps = Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__["useBlockProps"])();
@@ -3379,12 +3372,6 @@ function Edit(props) {
 
   var handleAddSlide = function handleAddSlide() {
     var slides = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(props.attributes.slides);
-    /*slides.push( {
-    	title: 'Title',
-    	description: 'description',
-    	backgroundImage:'',
-    } );*/
-
 
     slides.push({
       "title": "Title",
@@ -3406,7 +3393,7 @@ function Edit(props) {
     console.log(value, prop, _prop);
     props.setAttributes({
       _prop: _prop
-    }); //props.setAttributes( prop,value)
+    });
   };
 
   var handleRemoveSlide = function handleRemoveSlide(index) {
@@ -3449,13 +3436,6 @@ function Edit(props) {
   };
 
   var SliderProps, SliderSlides;
-  /*SliderProps = props.attributes.slides.map( ( slide, index ) => {
-  	return <Fragment key={ index }>
-  	<TextControl className="gsp__minHeight" placeholder="50vh" value={ props.attributes.minHeight } onChange={ ( minHeight ) => handleSlideProp( minHeight, 'minHeight' ) } />
-  	<Button className="gsp__remove-slide" icon="no-alt" label="Delete slide" onClick={ () => handleRemoveSlide( index ) } />
-  	</Fragment>
-  	;
-  } );*/
 
   SliderProps = function SliderProps() {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Fragment, {
@@ -3471,8 +3451,10 @@ function Edit(props) {
   };
 
   SliderSlides = props.attributes.slides.map(function (slide, index) {
-    var backgroundImage = props.attributes.slides[index].backgroundImage.url,
-        backgroundStyle = {};
+    var backgroundImage;
+    if (props.attributes.slides[index].backgroundImage) backgroundImage = props.attributes.slides[index].backgroundImage.url;
+    var backgroundStyle;
+    backgroundStyle = {};
     if (backgroundImage && backgroundImage.trim() != '') backgroundStyle = {
       backgroundImage: "url(".concat(backgroundImage, ")"),
       backgroundSize: 'cover',
@@ -3604,7 +3586,7 @@ function Edit(props) {
       onClick: function onClick() {
         return handleMoveSlide(index, 1);
       }
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, JSON.stringify(props.attributes.slides[index].backgroundImage.url)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, JSON.stringify(props.attributes.slides[index].backgroundImage ? props.attributes.slides[index].backgroundImage.url : '')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
       className: "gsp__slide-link",
       placeholder: "link",
       value: props.attributes.slides[index].link,
@@ -3624,120 +3606,53 @@ function Edit(props) {
     class: "carousel"
   }, JSON.stringify(props.attributes)))];
 }
-/*
-{props.attributes.slides.map( ( slide, index ) => {
-	return <div>{JSON.stringify(slide)}</div>
-} )}
-*/
 
 /***/ }),
 
-/***/ "./src/editor.scss":
-/*!*************************!*\
-  !*** ./src/editor.scss ***!
-  \*************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
-/*! no exports provided */
+/***/ "./src/blocks/slider/index.js":
+/*!************************************!*\
+  !*** ./src/blocks/slider/index.js ***!
+  \************************************/
+/*! exports provided: name, settings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "name", function() { return name; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "settings", function() { return settings; });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jquery */ "jquery");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
-/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(slick_carousel__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
-/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./save */ "./src/save.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
+/* harmony import */ var slick_carousel__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(slick_carousel__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! slick-carousel/slick/slick.css */ "./node_modules/slick-carousel/slick/slick.css");
+/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! slick-carousel/slick/slick-theme.css */ "./node_modules/slick-carousel/slick/slick-theme.css");
+/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./edit */ "./src/blocks/slider/edit.js");
+/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./save */ "./src/blocks/slider/save.js");
 
 
-/**
-* Registers a new block provided a unique name and an object defining its behavior.
-*
-* @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
-*/
 
-/**
-* Retrieves the translation of text.
-*
-* @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
-*/
-
-
-/**
-* Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
-* All files containing `style` keyword are bundled together. The code used
-* gets applied both to the front of your site and to the editor.
-*
-* @see https://www.npmjs.com/package/@wordpress/scripts#using-css
-*/
-
+ //import Slider from "react-slick";
 
 
  //require("slick-carousel/slick/slick");
 //require("slick-carousel/slick/slick-theme");
 
-window.jQuery = window.$ = jquery__WEBPACK_IMPORTED_MODULE_4___default.a;
-/**
-* Internal dependencies
-*/
+window.jQuery = window.$ = jquery__WEBPACK_IMPORTED_MODULE_2___default.a;
 
 
-
-console.log('im here');
-/**
-* Every block starts by registering a new block type definition.
-*
-* @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
-*/
-
-Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('create-block/slideshow', {
-  /**
-  * @see https://make.wordpress.org/core/2020/11/18/block-api-version-2/
-  */
+var name = 'un-block/slider';
+var settings = {
   apiVersion: 2,
-
-  /**
-  * This is the display title for your block, which can be translated with `i18n` functions.
-  * The block inserter will show this name.
-  */
-  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Slideshow', 'slideshow'),
-
-  /**
-  * This is a short description for your block, can be translated with `i18n` functions.
-  * It will be shown in the Block Tab in the Settings Sidebar.
-  written with ESNext standard and JSX support – build step required
-  */
-  description: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Gutenberg Slideshow block.', 'slideshow'),
-  keywords: [Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Slider'), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Repeatable'), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('ACF'), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Background')],
-
-  /**
-  * Blocks are grouped into categories to help users browse and discover them.
-  * The categories provided by core are `common`, `embed`, `formatting`, `layout` and `widgets`.
-  */
-  category: 'widgets',
-
-  /**
-  * An icon property should be specified to make it easier to identify a block.
-  * These can be any of WordPress’ Dashicons, or a custom svg element.
-  */
+  title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Slideshow', 'slideshow'),
+  description: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Gutenberg Slideshow block.', 'slideshow'),
+  keywords: [Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Slider'), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Repeatable'), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('ACF'), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Background')],
+  category: 'formatting',
   icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     width: "218.2",
@@ -3765,12 +3680,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cre
     "stroke-miterlimit": "10",
     "stroke-width": "6"
   })),
-
-  /**
-  * Optional block extended support features.
-  */
   supports: {
-    // Removes support for an HTML mode.
     html: false,
     align: true
   },
@@ -3788,24 +3698,16 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('cre
       default: []
     }
   },
-
-  /**
-  * @see ./edit.js
-  */
   edit: _edit__WEBPACK_IMPORTED_MODULE_6__["default"],
-
-  /**
-  * @see ./save.js
-  */
   save: _save__WEBPACK_IMPORTED_MODULE_7__["default"]
-});
+};
 
 /***/ }),
 
-/***/ "./src/save.js":
-/*!*********************!*\
-  !*** ./src/save.js ***!
-  \*********************/
+/***/ "./src/blocks/slider/save.js":
+/*!***********************************!*\
+  !*** ./src/blocks/slider/save.js ***!
+  \***********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3854,8 +3756,10 @@ function save(_ref) {
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__["useBlockProps"].save(), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     class: "carousel"
   }, slides.map(function (slide, index) {
-    var backgroundImage = slide.backgroundImage.url,
-        backgroundStyle = {};
+    var backgroundImage;
+    if (slide.backgroundImage) backgroundImage = slide.backgroundImage.url;
+    var backgroundStyle;
+    backgroundStyle = {};
     if (backgroundImage && backgroundImage.trim() != '') backgroundStyle = {
       backgroundImage: "url(".concat(backgroundImage, ")"),
       backgroundSize: 'cover',
@@ -3863,10 +3767,11 @@ function save(_ref) {
       'minHeight': minHeight
     };
 
-    var _class = 'vertical-' + slide.v + ' ' + 'horizontal-' + slide.h + ' ' + 'align-' + slide.align;
+    var _class = 'slick-slide-content vertical-' + slide.v + ' ' + 'horizontal-' + slide.h + ' ' + 'align-' + slide.align;
 
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       class: "item",
+      key: index,
       style: backgroundStyle
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
       class: _class,
@@ -3874,6 +3779,58 @@ function save(_ref) {
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h3", null, slide.title), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, slide.description), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", null, "Discover More")));
   })));
 } //<pre>{ JSON.stringify(attributes, null, '\t') }</pre>{JSON.stringify(slide)}
+
+/***/ }),
+
+/***/ "./src/editor.scss":
+/*!*************************!*\
+  !*** ./src/editor.scss ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _blocks_slider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./blocks/slider */ "./src/blocks/slider/index.js");
+/**
+* Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
+* All files containing `style` keyword are bundled together. The code used
+* gets applied both to the front of your site and to the editor.
+*
+* @see https://www.npmjs.com/package/@wordpress/scripts#using-css
+*/
+
+
+ //import * as quote from './quote';
+//import * as code from './code';
+
+console.log(_blocks_slider__WEBPACK_IMPORTED_MODULE_2__);
+var blocks = [_blocks_slider__WEBPACK_IMPORTED_MODULE_2__ //quote,
+//code
+];
+
+function registerBlock(block) {
+  var name = block.name,
+      settings = block.settings;
+  Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])(name, settings);
+}
+
+blocks.forEach(registerBlock);
 
 /***/ }),
 

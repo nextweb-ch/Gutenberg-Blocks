@@ -14,12 +14,15 @@
 		"packages-update": "wp-scripts packages-update"
 	},
 	"dependencies": {
-		"@wordpress/block-editor": "^5.2.1",
-		"@wordpress/blocks": "^6.25.1",
+		"@wordpress/block-editor": "^5.2.2",
+		"@wordpress/blocks": "^6.25.2",
 		"@wordpress/i18n": "^3.17.0",
+		"react-slick": "^0.28.0",
 		"slick-carousel": "^1.8.1"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^12.6.1"
+		"@wordpress/scripts": "^13.0.1",
+		"css-loader": "^5.0.1",
+		"image-webpack-loader": "^7.0.1"
 	}
 }

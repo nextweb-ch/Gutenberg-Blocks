@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/slider.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/script.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -3107,9 +3107,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ "./src/slider.js":
+/***/ "./src/script.js":
 /*!***********************!*\
-  !*** ./src/slider.js ***!
+  !*** ./src/script.js ***!
   \***********************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -3125,7 +3125,14 @@ console.log('im here too on front');
 window.jQuery = window.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a;
 
 jQuery(document).ready(function ($) {
-  $('.carousel').slick({//rtl: true
+  $('.carousel').slick({
+    //rtl: true
+    infinite: true,
+    dots: true,
+    speed: 300,
+    adaptiveHeight: true,
+    arrows: true,
+    centerPadding: '60px'
   });
 });
 
@@ -3143,4 +3150,4 @@ jQuery(document).ready(function ($) {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=slider.js.map
+//# sourceMappingURL=script.js.map

@@ -6,7 +6,7 @@ module.exports = {
 	entry: {
 		...defaultConfig.entry,
 		//index: path.resolve( process.cwd(), 'src', 'index.js' ),
-		slider: './src/slider.js',
+		script: './src/script.js',
 
 	},
 };

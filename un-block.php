@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name:     Slideshow
- * Description:     Example block written with ESNext standard and JSX support – build step required.
+ * Plugin Name:     Un-Block
+ * Description:     Gutenberg blocks set written with ESNext standard and JSX support.
  * Version:         0.1.0
  * Author:          The WordPress Contributors
  * License:         GPL-2.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:     slideshow
+ * Text Domain:     un-block
  *
- * @package         create-block
+ * @package         un-block
  */
 
 /**
@@ -17,59 +17,65 @@
  *
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/applying-styles-with-stylesheets/
  */
-function create_block_slideshow_block_init() {
+function un_block_init() {
 	$dir = __DIR__;
-
-	$script_asset_path = "$dir/build/index.asset.php";
-	if ( ! file_exists( $script_asset_path ) ) {
-		throw new Error(
-			'You need to run `npm start` or `npm run build` for the "create-block/slideshow" block first.'
-		);
+	$index_asset_path = "$dir/build/index.asset.php";
+	if ( ! file_exists( $index_asset_path ) ) {
+		throw new Error('You need to run `npm start` or `npm run build` for the "un-block/un-block" block first.');
 	}
 	$index_js     = 'build/index.js';
+	$index_asset = require( $index_asset_path );
+
+	$script_asset_path = "$dir/build/script.asset.php";
+	if ( ! file_exists( $script_asset_path ) ) {
+		throw new Error('You need to run `npm start` or `npm run build` for the "un-block/un-block" block first.');
+	}
+	$script_js     = 'build/script.js';
 	$script_asset = require( $script_asset_path );
+
+
 	wp_register_script(
-		'create-block-slideshow-block-editor',
+		'un-block-editor',
 		plugins_url( $index_js, __FILE__ ),
-		$script_asset['dependencies'],
-		$script_asset['version']
+		$index_asset['dependencies'],
+		$index_asset['version']
 	);
 	wp_register_script(
-		'create-block-slideshow-block',
-		plugins_url( 'build/slider.js', __FILE__ ),
+		'un-block',
+		plugins_url( 'build/script.js', __FILE__ ),
 		$script_asset['dependencies'],
 		$script_asset['version']
 	);
-	wp_set_script_translations( 'create-block-slideshow-block-editor', 'slideshow' );
+	wp_set_script_translations( 'un-block-editor', 'un-block' );
 
 	$editor_css = 'build/index.css';
 	wp_register_style(
-		'create-block-slideshow-block-editor',
+		'un-block-editor',
 		plugins_url( $editor_css, __FILE__ ),
 		array('wp-components'),
-		filemtime( "$dir/$editor_css" )
+		file_exists("$dir/$editor_css")?filemtime( "$dir/$editor_css" ):rand()
 	);
 
 	$style_css = 'build/style-index.css';
 	wp_register_style(
-		'create-block-slideshow-block',
+		'un-block',
 		plugins_url( $style_css, __FILE__ ),
 		array(),
-		filemtime( "$dir/$style_css" )
+		file_exists("$dir/$style_css")?filemtime( "$dir/$style_css" ):rand()
 	);
 
-	register_block_type( 'create-block/slideshow', array(
-		'editor_script' => 'create-block-slideshow-block-editor',
-		'editor_style'  => 'create-block-slideshow-block-editor',
-		'style'         => 'create-block-slideshow-block',
-		'script'		=> 'create-block-slideshow-block'
+	register_block_type( 'un-block/slideshow', array(
+		'editor_script' => 'un-block-editor',
+		'editor_style'  => 'un-block-editor',
+		'style'         => 'un-block',
+		'script'		=> 'un-block'
 	) );
 }
-add_action( 'init', 'create_block_slideshow_block_init' );
+add_action( 'init', 'un_block_init' );
 
 /*add_filter('the_content','enqueue_slider_script_if_block_is_used');
 function enqueue_slider_script_if_block_is_used($content = ""){
-	if(!is_admin() && has_block('create-block/slideshow')){
+	if(!is_admin() && has_block('un-block/slideshow')){
 		//$dir = __DIR__;
 		//$href=plugin_dir_url(__FILE__);
 		//$js='library/owl_carousel/owl.carousel.min.js';

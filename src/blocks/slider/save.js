@@ -28,12 +28,14 @@ export default function save({attributes}) {
 	//<p>{ __( 'Slideshow – hello from the saved content!', 'slideshow' ) }</p>
 	return (
 		<div { ...useBlockProps.save() }>
-		
+
 
 		<div class="carousel">
 		{slides.map( ( slide, index ) => {
-			let backgroundImage=slide.backgroundImage.url,
-			backgroundStyle={}
+			let backgroundImage
+				if(slide.backgroundImage)backgroundImage = slide.backgroundImage.url
+				let backgroundStyle
+					backgroundStyle = {}
 			if(backgroundImage && backgroundImage.trim()!='')backgroundStyle={
 				backgroundImage:`url(${backgroundImage})`,
 				backgroundSize:'cover',
@@ -41,21 +43,21 @@ export default function save({attributes}) {
 				'minHeight':minHeight
 			}
 			let _class=
-			'vertical-'+slide.v+' '+'horizontal-'+slide.h+' '+'align-'+slide.align
-			
+			'slick-slide-content vertical-'+slide.v+' '+'horizontal-'+slide.h+' '+'align-'+slide.align
 
-			return <div class="item" style={backgroundStyle}>
+
+			return <div class="item" key={ index } style={backgroundStyle}>
 			<a class={_class} href={slide.link}>
 			<h3>{slide.title}</h3>
 			<p>{slide.description}</p>
 			<button>Discover More</button>
 			</a>
-			
+
 			</div>
 		} )}
 		</div>
 
-		
+
 		</div>
 		);
 	}
