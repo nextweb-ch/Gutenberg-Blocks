@@ -11,6 +11,7 @@ License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
 Slider Carousel block written with ESNext standard and JSX support – build step required.
 
+!!!In developent!!!
 
 == Needs to implement ==
 
